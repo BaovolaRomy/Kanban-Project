@@ -15,6 +15,7 @@
     "multer": "^1.4.4",
     "nodemon": "^2.0.20",
     "pg": "^8.8.0",
+    "sanitize-html": "^2.8.1",
     "sequelize": "^6.28.0"
   },
   "devDependencies": {
