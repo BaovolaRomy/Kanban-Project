@@ -113,10 +113,14 @@ const taskManager = {
      * @param {Event} event 
      */
     handleDeleteButton: async function (event) {
+        const taskElmt = event.currentTarget;
+        console.log("task séléctionné", taskElmt);
 
         // On récupère l'ID de l'élément à supprimer
-        const taskHtmlElement = event.currentTarget.closest('.task');
+        const taskHtmlElement = taskElmt.closest('.task');
+       
         const taskId = taskHtmlElement.dataset.id;
+        const notificationElmt = document.querySelector('.message');
 
         // On envoie la requete de suppression à l'API
         try{
@@ -129,6 +133,7 @@ const taskManager = {
               
             // On supprime l'élément dans la page HTML
               taskHtmlElement.remove();
+              notificationElmt.classList.remove('is-hidden');
 
         }catch(e) {
             console.error(e);
