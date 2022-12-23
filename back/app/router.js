@@ -9,7 +9,7 @@ router.get('/tasks', taskController.listTasks);
 router.post('/tasks', taskController.createTask);
 
 // Route pour modifier une tache
-// router.patch('/tasks/:id', taskController.updateTask);
+router.put('/tasks/:id', taskController.updateTask);
 
 // Route pour supprimer une tache
 // router.delete('/tasks/:id', taskController.deleteTask);

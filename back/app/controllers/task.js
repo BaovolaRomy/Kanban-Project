@@ -19,6 +19,32 @@ const taskController = {
             name: sanitizeHtml(name),
           });
     res.status(201).json(task);
+    },
+
+    updateTask: async function(req, res){
+        const name = req.body.name;
+        const taskId = parseInt(req.params.id);
+
+        if (name === undefined) {
+            return res.status(400).json({ "error": "Invalid body. Should provide at least a 'name' property" });
+          }
+
+        if (name && typeof name !== "string") {
+            return res.status(400).json({ "error": "Invalid body parameter 'name'. Should provide a string." });
+        }
+
+        const task = await Task.findByPk(taskId);
+
+        if (!task) {
+            return res.status(404).json({ error: "Task not found. Please verify the provided id." })
+        }
+
+        if (name) {
+            task.name = name;
+        }
+
+        await task.save();
+        res.status(200).json(task);
     }
 };
 
