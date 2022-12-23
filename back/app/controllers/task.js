@@ -45,6 +45,23 @@ const taskController = {
 
         await task.save();
         res.status(200).json(task);
+    },
+
+    deleteTask : async function(req, res){
+        const taskId = parseInt(req.params.id);
+
+        if (isNaN(taskId)) {
+            return res.status(404).json({ error: "Task not found. Please verify the provided id." });
+        };
+
+        const task = await Task.findByPk(taskId);
+
+        if (!task) {
+            return res.status(404).json({ error: "Task not found. Please verify the provided id." });
+        }
+        await task.destroy();
+        res.status(204).end(); 
+        
     }
 };
 
