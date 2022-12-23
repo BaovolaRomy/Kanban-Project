@@ -109,16 +109,28 @@ const taskManager = {
      * 
      * @param {Event} event 
      */
-    handleDeleteButton: function (event) {
+    handleDeleteButton: async function (event) {
 
         // On récupère l'ID de l'élément à supprimer
         const taskHtmlElement = event.currentTarget.closest('.task');
         const taskId = taskHtmlElement.dataset.id;
 
         // On envoie la requete de suppression à l'API
+        try{
+            const response = await fetch(`${taskManager.apiEndpoint}/tasks/${taskId}`,{
+                method: 'DELETE',
+            });
+            if(!response.ok) {
+                throw new Error('Erreur de chargement des données');
+            };
+              
+            // On supprime l'élément dans la page HTML
+              taskHtmlElement.remove();
 
-        // On supprime l'élément dans la page HTML
-
+        }catch(e) {
+            console.error(e);
+            alert(e);
+          }
     },
 
     /**
