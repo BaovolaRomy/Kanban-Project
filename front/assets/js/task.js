@@ -78,8 +78,10 @@ const taskManager = {
         // Bloquer l'envoie du formulaire
         event.preventDefault();
 
+        const formElmt = event.currentTarget;
+
         // Récupérer les données du formulaire
-        const taskFormData = new FormData(event.currentTarget);
+        const taskFormData = new FormData(formElmt);
 
         // Envoyer les données à l'API
         try{
@@ -97,6 +99,7 @@ const taskManager = {
             const task = await response.json();
             console.log("task", task)
             taskManager.insertTaskInHtml(task);
+            formElmt.reset();
 
         }catch(e) {
             console.error(e);
