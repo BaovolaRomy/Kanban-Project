@@ -9,7 +9,7 @@ const taskManager = {
         try{
 
         // Récupère la liste des tâches à l'aide de la fonction fetch()
-        const response = await fetch(`http://localhost:3000/tasks`);
+        const response = await fetch(`${taskManager.apiEndpoint}/tasks`);
 
         if(!response.ok) {
             throw new Error('Erreur de chargement des données');
@@ -83,7 +83,7 @@ const taskManager = {
 
         // Envoyer les données à l'API
         try{
-            const response = await fetch('http://localhost:3000/tasks',{
+            const response = await fetch(`${taskManager.apiEndpoint}/tasks`,{
                 method: 'POST',
                 body: taskFormData
             });
@@ -140,7 +140,7 @@ const taskManager = {
      * 
      * @param {Event} event 
      */
-    handleEditForm: function (event) {
+    handleEditForm: async function (event) {
         // Bloquer l'envoie du formulaire
         event.preventDefault();
 
@@ -154,9 +154,24 @@ const taskManager = {
         const taskId = taskFormData.get('id');
 
         // Envoyer les données à l'API
+        try{
+            const response = await fetch(`${taskManager.apiEndpoint}/tasks/${taskId}`, {
+                method: 'PUT',
+                body: taskFormData
+            });
 
+            if(!response.ok) {
+                throw new Error('Erreur de chargement des données');
+            };
 
-        // Après confirmation de l'API modifier le nom de la tâche dans le span.task__name
+            // Après confirmation de l'API modifier le nom de la tâche dans le span.task__name
+            const task = await response.json();
+            taskHtmlElement.textContent = task.name;
+        
+        }catch(e) {
+            console.error(e);
+            alert(e);
+          }
 
         // On affiche l'input de modification
         taskHtmlElement.querySelector('.task__edit-form').style.display = 'none';
