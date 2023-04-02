@@ -1,6 +1,6 @@
 # Kanban
 
- Ce projet consiste a créer une appli de todolist, avec une création de BDD avec PostgreSQL en 2 parties :
+ Ce projet consiste a créer une appli de todolist, en utilisant une BDD en PostgreSQL, en 2 parties :
   - Un front fait en HTML/CSS(bulma)/JS
   - Une API avec Express et Sequelize
 
